@@ -57,9 +57,19 @@ app.post('/api/reservation', (req, res) => {
 app.delete('/api/reservation', (req, res) => {
     // req.body hosts is equal to the JSON post sent from the user
     // This works because of our body parsing middleware
-    resArray = [];
-    tableArray = [];
-    waitArray = [];
+    const newReservation = req.body;
+    console.log('new reservation', newReservation)
+    resArray.push(newReservation);
+    res.json(newReservation);
+
+
+    tableArray = resArray.filter((reservation, index) => {
+        return index <= 4;
+    })
+
+    waitArray = resArray.filter((waitlisted, index) => {
+        return index > 4;
+    })
 
 });
 // Starts the server to begin listening
